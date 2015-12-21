@@ -1,0 +1,198 @@
+//
+//  CardManager.pch
+//  CardManager
+//
+//  Created by w on 15/11/17.
+//  Copyright © 2015年 ZF. All rights reserved.
+//
+
+#ifndef CardManager_pch
+#define CardManager_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* CardManager_pch */
+
+#import "Masonry.h"
+#import "MJExtension.h"
+#import "ZFBankCardTool.h"
+#import "PassGuardCtrl.h"
+#import "PassGuardTextFieldTool.h"
+#import "HttpsRequestTool.h"
+
+//定义字符串
+#define CALENDAR_DESCREP_STR @"密码输入次数过多，账号已锁定，请10分钟后重试"
+//倒计时
+#define SEC 60
+
+
+//定义屏幕宽高
+#define HeightScreen [UIScreen mainScreen].bounds.size.height
+#define WidthScreen [UIScreen mainScreen].bounds.size.width
+
+#pragma 判断array string dictionary
+
+#define IS_NSString(x) ([x isKindOfClass:[NSString class]] && x.length>0)
+#define IS_NSMutableArray(x) ([x isKindOfClass:[NSMutableArray class]] && [x count]>0)
+#define IS_NSArray(x) ([x isKindOfClass:[NSArray class]] && [x count]>0)
+#define IS_NSMutableDictionary(x) ([x isKindOfClass:[NSMutableDictionary class]])
+#define IS_NSDictionary(x) ([x isKindOfClass:[NSDictionary class]])
+
+//设置默认值
+#define IF_String(x,y) x==nil?y:x
+#define IF_ID(x,y) x==nil?y:x
+
+
+//自身宽高
+#define WidthForSelf self.bounds.size.width
+#define heightForSelf self.bounds.size.height
+//定义颜色
+#define CLEAR_COLOR [UIColor clearColor]
+#define WhiteColor [UIColor whiteColor]
+#define GRAY_COLOR [UIColor grayColor]
+#define BLACK_COLOR [UIColor blackColor]
+#define GREEN_COLOR [UIColor greenColor]
+#define RED_S_COLOR [UIColor redColor]
+
+#define HOMEVIEWBACK_COLOR [UIColor colorWithHexString:@"#f6f6f6" alpha:1]
+#define MEMBERSHIPDETAILS_B_COLOR [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
+#define SELFVIEWCOLOR     [UIColor colorWithHexString:@"#EFEFF4" alpha:1];
+
+
+//#define GREEN_COLOR UIColorFromRGB(0x3bd014)
+#define TABLEVIEW_CELL_LINE_COLOR [UIColor colorWithRed:221.0/255.0 green:221.0/255.0 blue:221.0/255.0 alpha:1.0]
+
+#define RED_COLOR [UIColor colorWithRed:228.0/255.0 green:78.0/255.0 blue:72.0/255.0 alpha:1.0]
+#define BUTTON_BACKGROUND_COLOR [UIColor colorWithRed:31/255.0 green:100/255.0 blue:255/255.0 alpha:1.0]
+
+
+//方正黑体简体字体定义
+#define TEXTSIZEA_HETI [UIFont fontWithName:@"DongQingHeiTi" size:14.0]
+
+//字体大小
+#define TEXTSIZEMAX [UIFont systemFontOfSize:18.0]
+#define TEXTSIZEBIG [UIFont systemFontOfSize:16.0]
+#define TEXTSIZEMIDDLE [UIFont systemFontOfSize:15.0]
+#define TEXTSIZE_14 [UIFont systemFontOfSize:14.0]
+#define TEXTSIZESMALL [UIFont systemFontOfSize:12.0]
+
+
+//AlertView
+#define ALERT(title,msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
+
+#define AlterView(title,msg,cancel,ok,num)  UIAlertView *alterView =[[UIAlertView alloc]initWithTitle:title message:msg delegate:self cancelButtonTitle:cancel otherButtonTitles:ok, nil];\
+    alterView.tag=num;\
+    [alterView show];
+
+#define AlterViewBlock(title,msg,cancel,ok,num)  UIAlertView *alterView =[[UIAlertView alloc]initWithTitle:title message:msg delegate:ws cancelButtonTitle:cancel otherButtonTitles:ok, nil];\
+alterView.tag=num;\
+[alterView show];
+
+#ifdef DEBUG
+#define debugLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
+#define APIHOST @"http://p1.com"
+
+#else
+#define debugLog(...)
+#define debugMethod()
+#define APIHOST @"http://p1.com"
+
+#endif
+
+//Masonry
+#define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
+
+#define Masonry(class,className) WS(ws);\
+\
+class *className =[class new];\
+\
+[self.view addSubview:className];
+
+//[twoDimension mas_makeConstraints:block {\
+//}];
+
+
+#define BACK(block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
+#define MAIN(block) dispatch_async(dispatch_get_main_queue(),block)
+
+//navigation  title
+
+#define DXYZ @"短信验证"
+#define FK @"付款"
+#define XZFKFS @"选择付款方式"
+#define WDZD @"我的账单"
+#define HYKB @"会员卡包"
+#define KXQ @"卡详情"
+#define HYKCZ @"会员卡充值"
+#define WDYHJ @"我的优惠劵"
+#define GQYHJ @"过期优惠券"
+#define HYBQB @"汇元宝钱包"
+#define HYBQBCZ @"汇元宝钱包充值"
+#define TX @"提现"
+#define TXXQ @"提现详情"
+#define TJYHK @"添加银行"
+#define TJYHKXX @"添加银行卡信息"
+#define YHKGL @"银行卡管理"
+#define SZ @"设置"
+#define GRSZ @"个人设置"
+#define ZD @"账单"
+#define ZDXQ @"账单详情"
+#define SX @"筛选"
+#define SQ @"收起"
+#define ZFMM @"支付密码"
+#define XGDLMM @"修改登录密码"
+#define ZHZFMM @"找回支付密码"
+#define CZZFMM @"重置支付密码"
+#define XGZFMM @"修改支付密码"
+#define NC @"昵称"
+#define XTXX @"系统消息"
+
+
+
+//ButtonAndLabel
+#define SZ @"设置"
+#define GRSZ @"个人设置"
+#define ZD @"账单"
+#define RQ @"日期"
+#define QB @"全部"
+#define BZ @"本周"
+#define BY @"本月"
+#define XF @"消费"
+#define CZ @"充值"
+#define LX @"类型"
+#define QD @"确定"
+#define QX @"取消"
+#define SMRZ @"实名认证"
+#define SMRZ_MES @"您还未进行实名认证，实名认证才可绑定银行卡"
+
+
+
+
+//自定义padding
+#define PADDING_0 0.0
+#define PADDING_5 5.0
+#define PADDING_10 10.0
+#define PADDING_15 15.0
+
+#define PADDING_20 20.0
+#define PADDING_30 30.0
+
+#define PADDING_50 50.0
+
+#define PADDING_60 60.0
+#define PADDING_64 64.0
+#define PADDING_70 70.0
+#define PADDING_84 84.0
+#define PADDING_100 100.0
+
+#pragma tableView参数定义
+#define TABLEVIEW_CELL_HEIGHT_60 60
+#define TABLEVIEW_CELL_HEIGHT_140 140
+
+#define TABLEVIEW_CELL_HEADER_HEIGHT_20 20
+
+
+
+
